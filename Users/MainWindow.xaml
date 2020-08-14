@@ -5,8 +5,218 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Users"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="400" Width="550">
     <Grid>
-        
+        <TabControl TabStripPlacement="Top" FlowDirection="RightToLeft" Margin="0,5,0,0">
+            <TabItem Header="רשימת משתמשים">              
+                <Grid Height="350" Width="500">
+                     <StackPanel Background="Beige" Height="30" Margin="0,0,0,280">
+                        <StackPanel Orientation="Horizontal">
+                        <Label Content="חיפוש"></Label>
+                            <Label Content="לפי"></Label>
+                            <ComboBox IsEditable="True" IsReadOnly="True" Text="בחר/י" Margin="2" Name="comboxsearch" Width="80">
+                                <ComboBoxItem Content="בחר/י"></ComboBoxItem>
+                                <ComboBoxItem Name="Id" Content="ת.ז"></ComboBoxItem>
+                                <ComboBoxItem Name="First_Name" Content="שם פרטי"></ComboBoxItem>
+                                <ComboBoxItem  Name="Last_Name" Content="שם משפחה"></ComboBoxItem>
+                            </ComboBox>
+                            <TextBox Margin="2" Name="textboxusersearch" Width="100"></TextBox>
+                            <Button Margin="2" Width="50"  Content="הצג" Click="Search_User"></Button>
+                        </StackPanel>
+                    </StackPanel>
+                   
+            <DataGrid Height="250" Margin="0,50,0,0" Name="UsersDataTable" AutoGenerateColumns="False" Background="Honeydew">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Id}" Header="ת.ז" Width="70"/>
+                <DataGridTextColumn Binding="{Binding First_Name}" Header="שם פרטי"  Width="70"/>
+                <DataGridTextColumn Binding="{Binding Last_Name}" Header="שם משפחה"  Width="75"/>
+                <DataGridTextColumn Binding="{Binding BirthDay}" Header="ת.לידה"  Width="70"/>
+                <DataGridTextColumn Binding="{Binding Phone_Number}" Header="נייד"  Width="60"/>
+                <DataGridTextColumn Binding="{Binding Gender}" Header="מין"  Width="60"/>
+                <DataGridTextColumn Binding="{Binding Email}" Header="דוא''ל"  Width="100"/>
+             
+            </DataGrid.Columns>
+        </DataGrid>
+                  
+                </Grid>
+        </TabItem>
+            <TabItem Header="הוספת משתמש">
+               
+                    <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0.343"/>
+                            <GradientStop Color="#FFA9F3FF" Offset="1"/>
+                        </LinearGradientBrush>
+
+                    </Grid.Background>
+                    <StackPanel Orientation="Horizontal">
+
+                    <StackPanel Orientation="Vertical">
+                        
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="ת.ז" Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                            <TextBox Name="id" Height="25" Width="120" Margin="20"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="שם פרטי"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="firstname" Height="25" Width="120" Margin="20"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="שם משפחה"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="lastname" Height="25" Width="120" Margin="20"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                                <Label Content="דוא''ל"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="email" Height="25" Width="120" Margin="20"></TextBox>
+                        </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="ת.לידה"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <DatePicker Name="birthday" Height="25" Width="120" Margin="20"></DatePicker>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="מין"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <ComboBox IsEditable="True" IsReadOnly="True" Text="בחר/י" Name="gender" Height="25" Width="120" Margin="20">
+                                <ComboBoxItem Content="זכר"></ComboBoxItem>
+                                <ComboBoxItem Content="נקבה"></ComboBoxItem>
+                                    <ComboBoxItem Content="אחר"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="טלפון"  Width="80" Height="30" FontSize="13" HorizontalContentAlignment="Right"></Label>
+                                <TextBox  Name="phonenumber" Height="25" Width="70" Margin="20" HorizontalContentAlignment="Right"></TextBox>
+                                <ComboBox IsEditable="True" IsReadOnly="True" Text="בחר/י" FontSize="9" Name="areacode" Height="25" Width="40" Margin="-10">
+                                    <ComboBoxItem Content="050"></ComboBoxItem>
+                                    <ComboBoxItem Content="052"></ComboBoxItem>
+                                    <ComboBoxItem Content="053"></ComboBoxItem>
+                                    <ComboBoxItem Content="054"></ComboBoxItem>
+                                        <ComboBoxItem Content="057"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Button  Content="שלח/י"  Height="20" Width="80" Margin="100,22,0,0" Click="AddUser"></Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+                        
+                    </Grid>
+              
+            </TabItem>
+            <TabItem Header="הסרת משתמש">
+                <StackPanel Orientation="Vertical">
+                <Label Content="אנא הכנס\י את מספר תעודת הזהות של המשתמש שברצונך למחוק:" Height="50" FontSize="17"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="30" Content="ת.ז"></Label>
+                        <TextBox Width="80" Height="25" Margin="20,0,0,0" Name="Id_Show"> </TextBox>
+                        <Button Width="50" Height="25" Margin="20,0,0,0" Content="הצג" Click="UserDisplay"></Button>
+                    </StackPanel>
+                    <Grid Height="60" Width="500" Margin="0,50,0,0">
+                        <DataGrid Name="UserApper" Height="45" Width="500" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Honeydew">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Id}" Header="ת.ז" Width="70"/>
+                                <DataGridTextColumn Binding="{Binding First_Name}" Header="שם פרטי"  Width="70"/>
+                                <DataGridTextColumn Binding="{Binding Last_Name}" Header="שם משפחה"  Width="75"/>
+                                <DataGridTextColumn Binding="{Binding BirthDay}" Header="ת.לידה"  Width="70"/>
+                                <DataGridTextColumn Binding="{Binding Phone_Number}" Header="נייד"  Width="60"/>
+                                <DataGridTextColumn Binding="{Binding Gender}" Header="מין"  Width="60"/>
+                                <DataGridTextColumn Binding="{Binding Email}" Header="דוא''ל"  Width="100"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <Button Margin="50" Width="80" Height="30" Content="הסר/י" Click="User_Delete"></Button>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="עדכון משתמש">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="אנא הכנס\י את מספר תעודת הזהות של המשתמש שברצונך לעדכן:" Height="50" FontSize="17"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Height="30" Content="ת.ז"></Label>
+                        <TextBox Width="80" Height="25" Margin="20,0,0,0" Name="Id_Show_Update"></TextBox>
+                        <Button Width="50" Height="25" Margin="20,0,0,0" Content="הצג" Click="User_Display_Update"></Button>
+                    </StackPanel>
+                    <Grid Height="60" Width="500" Margin="0,20,0,0">
+                        <DataGrid Name="UserApearUpdate" Width="500" Height="45" AutoGenerateColumns="False"  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Honeydew">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Id}" Header="ת.ז" Width="70"/>
+                                <DataGridTextColumn Binding="{Binding First_Name}" Header="שם פרטי"  Width="70"/>
+                                <DataGridTextColumn Binding="{Binding Last_Name}" Header="שם משפחה"  Width="75"/>
+                                <DataGridTextColumn Binding="{Binding BirthDay}" Header="ת.לידה"  Width="70"/>
+                                <DataGridTextColumn Binding="{Binding Phone_Number}" Header="נייד"  Width="60"/>
+                                <DataGridTextColumn Binding="{Binding Gender}" Header="מין"  Width="60"/>
+                                <DataGridTextColumn Binding="{Binding Email}" Header="דוא''ל"  Width="100"/>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" Height="180" Width="346" HorizontalAlignment="Left">
+
+                        <StackPanel Width="165" Margin="0,2,0,0"  Orientation="Vertical">
+
+                          
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="שם פרטי"  Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="firstnameupdate" Height="18" Width="80" Margin="20"></TextBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="שם משפחה"  Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="lastnameupdate" Height="18" Width="80" Margin="20"></TextBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="דוא''ל"  Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="emailupdate" Height="18" Width="80" Margin="20"></TextBox>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                        <StackPanel Width="180" Orientation="Vertical">
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="ת.לידה" Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <DatePicker Name="birthdayupdate" Height="21" Width="80" Margin="20" FontSize="10"></DatePicker>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="מין"  Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <ComboBox IsEditable="True" IsReadOnly="True" Text="בחר/י" Name="genderupdate" Height="20" Width="80" Margin="20" FontSize="12">
+                                <ComboBoxItem Content="זכר"></ComboBoxItem>
+                                    <ComboBoxItem Content="נקבה"></ComboBoxItem>
+                                    <ComboBoxItem Content="אחר"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Width="180">
+                                <Label Content="טלפון"  Width="65" Height="25" FontSize="12" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Name="phonenumberupdate" Height="18" Width="50" Margin="20"></TextBox>
+                                <ComboBox IsEditable="True" IsReadOnly="True" Text="בחר/י" Margin="-12" Height="18" Width="40" FontSize="9">
+                                    <ComboBoxItem Content="050"></ComboBoxItem>
+                                    <ComboBoxItem Content="052"></ComboBoxItem>
+                                    <ComboBoxItem Content="053"></ComboBoxItem>
+                                    <ComboBoxItem Content="054"></ComboBoxItem>
+                                    <ComboBoxItem Content="057"></ComboBoxItem>
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+
+                    </StackPanel>
+                    <Button  Width="80" Height="22" Content="עדכון" Click="User_Update" Margin="320,-65,4,0"></Button>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
